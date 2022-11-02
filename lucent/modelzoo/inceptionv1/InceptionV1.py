@@ -372,3 +372,8 @@ class InceptionV1(nn.Module):
         softmax2_pre_activation_matmul = self.softmax2_pre_activation_matmul(avgpool0_reshape)
         softmax2 = self.softmax2(softmax2_pre_activation_matmul)
         return softmax2
+
+# x = torch.randn(1, 3, 224, 224)
+# model = InceptionV1(pretrained=False, progress=True, redirected_ReLU=True)
+
+# outputs = model.forward(x)

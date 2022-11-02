@@ -44,6 +44,7 @@ def render_vis(
 ):
     if param_f is None:
         param_f = lambda: param.image(128)
+        #param_f = param.image(128)
     # param_f is a function that should return two things
     # params - parameters to update, which we pass to the optimizer
     # image_f - a function that returns an image as a tensor
