@@ -79,7 +79,7 @@ class Objective():
     def __radd__(self, other):
         return self.__add__(other)
 
-
+#================================================================================
 def wrap_objective():
     @decorator
     def inner(func, *args, **kwds):
@@ -364,5 +364,5 @@ def as_objective(obj):
         return obj
     if isinstance(obj, str):
         layer, chn = obj.split(":")
-        layer, chn = layer.strip(), int(chn)
+        layer, chn = layer.strip(), int(chn) #strip removes the leading and trailing spaces in a string
         return channel(layer, chn)
