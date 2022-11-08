@@ -42,8 +42,8 @@ def rfft2d_freqs(h, w):
     #print(f"The fx matrix before being squared: {fx} with a shape of :{fx.shape}")
     #print(f"The fx^2 matrix after being squared:{fx * fx} with shape of :{(fx**2).shape}")
     what =  np.sqrt(fx * fx + fy * fy)
-    print(what.shape)
-    print(what)
+    #print(what.shape)
+    #print(what)
     #return np.sqrt(fx * fx + fy * fy)
     return what
 

@@ -32,7 +32,7 @@ def render_vis(
     param_f=None,
     optimizer=None,
     transforms=None,
-    thresholds=(512,),
+    thresholds=(128,),
     verbose=False,
     preprocess=True,
     progress=True,
@@ -66,7 +66,7 @@ def render_vis(
             # Assume we use normalization for torchvision.models
             # See https://pytorch.org/docs/stable/torchvision/models.html
             transforms.append(transform.normalize())
-
+    
     # Upsample images smaller than 224
     image_shape = image_f().shape
     if fixed_image_size is not None:
@@ -77,9 +77,8 @@ def render_vis(
         new_size = None
     if new_size:
         transforms.append(
-            torch.nn.Upsample(size=new_size, mode="bilinear", align_corners=True)
+            torch.nn.Upsample(size=new_size, mode="bilinear", align_corners=True) # WOAH, CHECK THIS OUT AS SOON AS POSSIBLE (2022-11-06) - Does not do what I hoped it did.
         )
-
     transform_f = transform.compose(transforms)
 
     hook = hook_model(model, image_f)
@@ -95,7 +94,7 @@ def render_vis(
             def closure():
                 optimizer.zero_grad()
                 try:
-                    model(transform_f(image_f()))
+                    model.forward(transform_f(image_f()))
                 except RuntimeError as ex:
                     if i == 1:
                         # Only display the warning message
