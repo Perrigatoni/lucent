@@ -92,7 +92,7 @@ def wrap_objective():
 
 
 def handle_batch(batch=None):
-    return lambda f: lambda model: f(_T_handle_batch(model, batch=batch))
+    return lambda f: lambda model: f(_T_handle_batch(model, batch=batch)) # WHAT THE FUCK IS THIS!
 
 
 @wrap_objective()

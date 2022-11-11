@@ -25,7 +25,7 @@ def main():
         # that they use lambda with no arguments to declare that param_f, or image_f is a function. this is building a simple function, ffs.
         opt = lambda params: torch.optim.Adam(params, 5e-2)
         #obj = "mixed4a:476"
-        obj = objectives.neuron("mixed4a", 476)
+        obj = objectives.neuron("mixed4a", 476, 7, 7)
 
     render.render_vis(model, obj, param_f, opt)
 
