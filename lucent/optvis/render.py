@@ -87,7 +87,7 @@ def render_vis(
     if verbose:
         model(transform_f(image_f()))
         print("Initial loss: {:.3f}".format(objective_f(hook)))
-
+# bara bara bara
     images = []
     try:
         for i in tqdm(range(1, max(thresholds) + 1), disable=(not progress)):
