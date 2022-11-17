@@ -91,8 +91,17 @@ def wrap_objective():
     return inner
 
 
+#def handle_batch(batch=None):
+#    return lambda f: lambda model: f(_T_handle_batch(model, batch=batch)) # WHAT THE FUCK IS THIS!
+
 def handle_batch(batch=None):
-    return lambda f: lambda model: f(_T_handle_batch(model, batch=batch)) # WHAT THE FUCK IS THIS!
+    def decorator(func):
+        def wrapper (model):
+            value = func(_T_handle_batch(model, batch=batch))
+            return value
+        return wrapper
+    return decorator
+    
 
 
 @wrap_objective()
