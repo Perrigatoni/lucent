@@ -51,7 +51,10 @@ def render_vis(
     params, image_f = param_f()
 
     if optimizer is None:
-        optimizer = lambda params: torch.optim.Adam(params, lr=5e-2)
+        #optimizer = lambda params: torch.optim.Adam(params, lr=5e-2)
+        def optimizer(parameters):
+            return torch.optim.Adam(parameters, lr=5e-2)
+    
     optimizer = optimizer(params)
 
     if transforms is None:
@@ -94,6 +97,7 @@ def render_vis(
             def closure():
                 optimizer.zero_grad()
                 try:
+                    #view(image_f())
                     model.forward(transform_f(image_f()))
                 except RuntimeError as ex:
                     if i == 1:
@@ -112,6 +116,7 @@ def render_vis(
                 
             optimizer.step(closure)
             if i in thresholds:
+                #print(params)
                 image = tensor_to_img_array(image_f())
                 if verbose:
                     print("Loss at step {}: {:.3f}".format(i, objective_f(hook)))

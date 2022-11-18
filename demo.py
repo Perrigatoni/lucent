@@ -1,5 +1,6 @@
 import torch
 
+from PIL import Image
 from lucent.optvis import render, param, objectives
 from lucent.modelzoo import inceptionv1
 
@@ -23,12 +24,14 @@ def main():
     else:
         param_f = lambda: param.image(224, channels=3, fft=SPATIAL_DECORRELATION, decorrelate=CHANNEL_DECORRELATION) # these motherfuckers coud have stated
         # that they use lambda with no arguments to declare that param_f, or image_f is a function. this is building a simple function, ffs.
-        opt = lambda params: torch.optim.Adam(params, 5e-2)
+       # opt = lambda params: torch.optim.Adam(params, 5e-2)
         #obj = "mixed4a:476"
-        obj = objectives.neuron("mixed4a", 476, 7, 7)
+        #obj = objectives.neuron("mixed4a", 476, 7, 7, 0)
+        obj = objectives.channel("mixed4e", 100)
 
-    render.render_vis(model, obj, param_f, opt)
-
+    #render.render_vis(model, obj, param_f, opt)
+    images_list = render.render_vis(model, obj, param_f)
+    print(len(images_list))
 
 if __name__ == "__main__":
     main()
