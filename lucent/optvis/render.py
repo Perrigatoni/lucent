@@ -30,9 +30,10 @@ def render_vis(
     model,
     objective_f,
     param_f=None,
-    optimizer=None,
+    #optimizer=None,,
+    optimizer = torch.optim.Adam,
     transforms=None,
-    thresholds=(128,),
+    thresholds=(64,),
     verbose=False,
     preprocess=True,
     progress=True,
@@ -50,12 +51,9 @@ def render_vis(
     # image_f - a function that returns an image as a tensor
     params, image_f = param_f()
 
-    if optimizer is None:
-        #optimizer = lambda params: torch.optim.Adam(params, lr=5e-2)
-        def optimizer(parameters):
-            return torch.optim.Adam(parameters, lr=5e-2)
+
     
-    optimizer = optimizer(params)
+    optimizer = optimizer(params, lr=0.05)
 
     if transforms is None:
         transforms = transform.standard_transforms
@@ -199,7 +197,6 @@ def hook_model(model, image_f):
                 hook_layers(layer, prefix=prefix + [name])
 
     hook_layers(model)
-
     def hook(layer):
         if layer == "input":
             out = image_f()

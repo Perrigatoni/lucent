@@ -107,7 +107,7 @@ class InceptionV1(nn.Module):
         self.add_layers(redirected_ReLU)
 
         if pretrained:
-            self.load_state_dict(torch.hub.load_state_dict_from_url(model_urls['inceptionv1'], progress=progress))
+            self.load_state_dict(torch.hub.load_state_dict_from_url(model_urls['inceptionv1'], progress=progress))  #what is this? LOADS THE WEIGHTS
 
     def add_layers(self, redirected_ReLU=True):
         if redirected_ReLU:

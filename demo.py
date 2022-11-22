@@ -3,7 +3,7 @@ import torch
 from PIL import Image
 from lucent.optvis import render, param, objectives
 from lucent.modelzoo import inceptionv1
-
+import torchvision.models
 def main():
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -12,8 +12,8 @@ def main():
 
     CPPN = False
 
-    SPATIAL_DECORRELATION = True #Change this to get either pixel image or fft (fourier transform on the image)
-    CHANNEL_DECORRELATION = True #Change this to get decorellated colors or not 
+    SPATIAL_DECORRELATION = False #Change this to get either pixel image or fft (fourier transform on the image)
+    CHANNEL_DECORRELATION = False #Change this to get decorellated colors or not 
 
     if CPPN:
         # CPPN parameterization
@@ -27,9 +27,9 @@ def main():
        # opt = lambda params: torch.optim.Adam(params, 5e-2)
         #obj = "mixed4a:476"
         #obj = objectives.neuron("mixed4a", 476, 7, 7, 0)
-        obj = objectives.channel("mixed4e", 100)
+        obj = objectives.channel("mixed3a", 100)
 
-    #render.render_vis(model, obj, param_f, opt)
+    #render.render_vis(model, obj, param_f)
     images_list = render.render_vis(model, obj, param_f)
     print(len(images_list))
 
