@@ -27,7 +27,7 @@ def main():
        # opt = lambda params: torch.optim.Adam(params, 5e-2)
         #obj = "mixed4a:476"
         #obj = objectives.neuron("mixed4a", 476, 7, 7, 0)
-        obj = objectives.channel("mixed3a", 100)
+        obj = objectives.channel("mixed3a", 101)
 
     #render.render_vis(model, obj, param_f)
     images_list = render.render_vis(model, obj, param_f)
