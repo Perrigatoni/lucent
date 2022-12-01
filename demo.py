@@ -22,14 +22,19 @@ def main():
         # Some objectives work better with CPPN than others
         obj = "mixed4d_3x3_bottleneck_pre_relu_conv:139"
     else:
-        param_f = lambda: param.image(224, channels=3, fft=SPATIAL_DECORRELATION, decorrelate=CHANNEL_DECORRELATION) # these motherfuckers coud have stated
+        param_f = lambda: param.image(224, fft=SPATIAL_DECORRELATION, decorrelate=CHANNEL_DECORRELATION, batch=None) # these motherfuckers coud have stated
         # that they use lambda with no arguments to declare that param_f, or image_f is a function. this is building a simple function, ffs.
        # opt = lambda params: torch.optim.Adam(params, 5e-2)
-        #obj = "mixed4a:476"
-        #obj = objectives.neuron("mixed4a", 476)
-        #obj = objectives.channel("mixed3a", 101)
-        channel = lambda n: objectives.channel("mixed4a", n)
-        obj = channel(476) + channel(465)
+        obj = "mixed3a:101"
+        #obj = objectives.channel("mixed3a", 100)
+        #weight = torch.rand(256, device=device)
+        #obj = objectives.channel_weight("mixed3a", weight)
+        #obj = objectives.channel("mixed3a", 101, batch=1) - objectives.channel("mixed3a", 101, batch=0)
+        #direction = torch.rand(256, device=device)
+        #obj = objectives.direction(layer='mixed3a', direction=direction)
+        #Implementation with more than one objectives
+        #channel = lambda n: objectives.channel("mixed4a", n)
+        #obj = channel(476) + channel(465)
         
     #render.render_vis(model, obj, param_f)
     images_list = render.render_vis(model, obj, param_f)

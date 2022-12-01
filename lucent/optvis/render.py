@@ -33,7 +33,7 @@ def render_vis(
     #optimizer=None,,
     optimizer = torch.optim.Adam,
     transforms=None,
-    thresholds=(128,),
+    thresholds=(512,),
     verbose=False,
     preprocess=True,
     progress=True,
