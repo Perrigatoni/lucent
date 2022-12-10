@@ -137,7 +137,8 @@ def channel(layer, n_channel, batch=None):
     """Visualize a single channel"""
     @handle_batch(batch)
     def inner(model):
-        return -model(layer)[:, n_channel].mean()
+        x = -model(layer)[:, n_channel].mean()
+        return x # to better probe the loss I define an x variable
     return inner
 
 @wrap_objective()

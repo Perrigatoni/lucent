@@ -12,7 +12,7 @@ def main():
 
     CPPN = False
 
-    SPATIAL_DECORRELATION = False #Change this to get either pixel image or fft (fourier transform on the image)
+    SPATIAL_DECORRELATION = True #Change this to get either pixel image or fft (fourier transform on the image)
     CHANNEL_DECORRELATION = False #Change this to get decorellated colors or not 
 
     if CPPN:
@@ -25,8 +25,9 @@ def main():
         param_f = lambda: param.image(224, fft=SPATIAL_DECORRELATION, decorrelate=CHANNEL_DECORRELATION, batch=None) # these motherfuckers coud have stated
         # that they use lambda with no arguments to declare that param_f, or image_f is a function. this is building a simple function, ffs.
        # opt = lambda params: torch.optim.Adam(params, 5e-2)
-        obj = "mixed3a:101"
-        #obj = objectives.channel("mixed3a", 100)
+        #obj = "mixed3a:101"
+        #obj = - objectives.neuron("mixed3a", 8)
+        obj = - objectives.channel("mixed3a", 8)
         #weight = torch.rand(256, device=device)
         #obj = objectives.channel_weight("mixed3a", weight)
         #obj = objectives.channel("mixed3a", 101, batch=1) - objectives.channel("mixed3a", 101, batch=0)
