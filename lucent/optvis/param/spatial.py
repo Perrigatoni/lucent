@@ -39,24 +39,20 @@ def rfft2d_freqs(h, w):
         fx = np.fft.fftfreq(w)[: w // 2 + 2]
     else:
         fx = np.fft.fftfreq(w)[: w // 2 + 1]
-    #print(f"The fx matrix before being squared: {fx} with a shape of :{fx.shape}")
-    #print(f"The fx^2 matrix after being squared:{fx * fx} with shape of :{(fx**2).shape}")
-    what =  np.sqrt(fx * fx + fy * fy)
-    #print(what.shape)
-    #print(what)
-    #return np.sqrt(fx * fx + fy * fy)
-    return what
+    return np.sqrt(fx * fx + fy * fy)
 
 
 def fft_image(shape, sd=None, decay_power=1):
+    """An image paramaterization using 2D Fourier coefficients."""
     batch, channels, h, w = shape
     freqs = rfft2d_freqs(h, w)
     init_val_size = (batch, channels) + freqs.shape + (2,) # 2 for imaginary and real components
     sd = sd or 0.01
-
+    #init_val_size = shape
     spectrum_real_imag_t = (torch.randn(*init_val_size) * sd).to(device).requires_grad_(True)
 
     scale = 1.0 / np.maximum(freqs, 1.0 / max(w, h)) ** decay_power
+    #scale = 1.0 / np.maximum(freqs, 1.0 / 255) ** decay_power
     scale = torch.tensor(scale).float()[None, None, ..., None].to(device)
 
     def inner():

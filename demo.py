@@ -13,7 +13,7 @@ def main():
     CPPN = False
 
     SPATIAL_DECORRELATION = True #Change this to get either pixel image or fft (fourier transform on the image)
-    CHANNEL_DECORRELATION = False #Change this to get decorellated colors or not 
+    CHANNEL_DECORRELATION = True #Change this to get decorellated colors or not 
 
     if CPPN:
         # CPPN parameterization
@@ -27,7 +27,8 @@ def main():
        # opt = lambda params: torch.optim.Adam(params, 5e-2)
         #obj = "mixed3a:101"
         #obj = - objectives.neuron("mixed3a", 8)
-        obj = - objectives.channel("mixed3a", 8)
+        #obj = objectives.channel("mixed3a", 8)
+        obj = objectives.channel("mixed3a", 8) #+ objectives.blur_input_each_step()
         #weight = torch.rand(256, device=device)
         #obj = objectives.channel_weight("mixed3a", weight)
         #obj = objectives.channel("mixed3a", 101, batch=1) - objectives.channel("mixed3a", 101, batch=0)
