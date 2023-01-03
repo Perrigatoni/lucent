@@ -22,13 +22,14 @@ def main():
         # Some objectives work better with CPPN than others
         obj = "mixed4d_3x3_bottleneck_pre_relu_conv:139"
     else:
-        param_f = lambda: param.image(224, fft=SPATIAL_DECORRELATION, decorrelate=CHANNEL_DECORRELATION, batch=None) # these motherfuckers coud have stated
+        param_f = lambda: param.image(128, fft=SPATIAL_DECORRELATION, decorrelate=CHANNEL_DECORRELATION, batch=2) # these motherfuckers coud have stated
         # that they use lambda with no arguments to declare that param_f, or image_f is a function. this is building a simple function, ffs.
        # opt = lambda params: torch.optim.Adam(params, 5e-2)
         #obj = "mixed3a:101"
-        #obj = - objectives.neuron("mixed3a", 8)
+        obj = objectives.channel("mixed3a", 230, batch=0) - objectives.channel("mixed3a", 222, batch=0)
+        #obj = objectives.channel("mixed5a", 9) - 1e2*objectives.diversity("mixed5a")
         #obj = objectives.channel("mixed3a", 8)
-        obj = objectives.channel("mixed3a", 8) #+ objectives.blur_input_each_step()
+        #obj = objectives.channel("mixed3a", 8) #+ objectives.blur_input_each_step()
         #weight = torch.rand(256, device=device)
         #obj = objectives.channel_weight("mixed3a", weight)
         #obj = objectives.channel("mixed3a", 101, batch=1) - objectives.channel("mixed3a", 101, batch=0)

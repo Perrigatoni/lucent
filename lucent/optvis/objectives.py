@@ -33,6 +33,7 @@ class Objective():
         return self.objective_func(model)
 
     def __add__(self, other):
+        print("been through add!")
         if isinstance(other, (int, float)):
             objective_func = lambda model: other + self(model)
             name = self.name
@@ -45,6 +46,7 @@ class Objective():
 
     @staticmethod
     def sum(objs):
+        print("been through sum!")
         objective_func = lambda T: sum([obj(T) for obj in objs])
         descriptions = [obj.description for obj in objs]
         description = "Sum(" + " +\n".join(descriptions) + ")"
@@ -53,9 +55,11 @@ class Objective():
         return Objective(objective_func, name=name, description=description)
 
     def __neg__(self):
+        print("been through neg!")
         return -1 * self
 
     def __sub__(self, other):
+        print("been through sub!")
         return self + (-1 * other)
 
     def __mul__(self, other):
@@ -74,9 +78,11 @@ class Objective():
             raise TypeError('Can only divide by int or float. Received type ' + str(type(other)))
 
     def __rmul__(self, other):
+        print("been through rmul!")
         return self.__mul__(other)
 
     def __radd__(self, other):
+        print("been through radd!")
         return self.__add__(other)
 
 #================================================================================
